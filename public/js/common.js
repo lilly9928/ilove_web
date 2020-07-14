@@ -163,3 +163,61 @@ function a2s_addMulitipleDB(table, values, callback) {
         }
     });
 }
+
+
+function a2s_modifyDBByCond(table, values, cond, callback) {
+    var res;
+    $.ajax({
+        url: "/api/db/byCond",
+        type: "put",
+        dataType: 'json',
+        data: {table: table, values: values, cond: cond},
+        success: function(result, textStatus, jqXHR){
+            //console.log(`result1`, result);
+            //console.log(`status1`, jqXHR.status);
+            callback(result);
+        },
+        error: function(jqXHR, error) {
+            //console.log(`error1`, error);
+            //console.log(`status1`, jqXHR.status);
+            callback(error);
+        }
+    });
+}
+function a2s_searchDBByCond(table, field, value, callback) {
+    var res;
+    $.ajax({
+        url: "/api/db/searchByCond",
+        type: "GET",
+        data: {table: table, field: field, value: value},
+        success: function(result, textStatus, jqXHR){
+            //console.log(`result1`, result);
+            //console.log(`status1`, jqXHR.status);
+            callback(null, result);
+        },
+        error: function(jqXHR, error) {
+            //console.log(`error1`, error);
+            //console.log(`status1`, jqXHR.status);
+            callback(error, null);
+        }
+    });
+}
+
+function a2s_getDBSomeGroupBy(table, fields, group, callback) {
+    var res;
+    $.ajax({
+        url: "/api/db/someGroupBy",
+        type: "GET",
+        data: {table: table, fields: fields, group: group},
+        success: function(result, textStatus, jqXHR){
+            //console.log(`result1`, result);
+            //console.log(`status1`, jqXHR.status);
+            callback(result);
+        },
+        error: function(jqXHR, error) {
+            //console.log(`error1`, error);
+            //console.log(`status1`, jqXHR.status);
+            callback(error, null);
+        }
+    });
+}

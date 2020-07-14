@@ -1,1 +1,56 @@
-채팅알바
+<% include ../reference.ejs %>
+
+<div class="card-body" style="padding: 5%;">
+    <div class="table-responsive">
+        <table id="myTable" class="hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>유저 아이디</th>
+                    <th>비밀번호</th>
+                    <th>성별</th>
+                    <th>관리</th>
+                    
+                </tr>
+            </thead>
+        </table>
+        </div>
+        </div>
+    
+<script>
+
+$(document).ready(function () {
+    var table ='user'
+    var value='user_authority="manager"'
+    var data =[]
+    a2s_getDBByCond(table, value, function (res) {
+        if(res.length!=0){
+            for(var i=0; i<res.length;i++){
+            var input = [res[i].user_id, res[i].user_password,res[i].user_gender]
+            data.push(input)
+            console.log(input)
+            console.log(data)
+            }
+        }
+        var table = $('#myTable').DataTable({
+            data:data,
+            "language": {
+            "emptyTable": "데이터가 없어요.",
+            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+            "info": "현재 _START_ - _END_ / _TOTAL_건",
+            "infoEmpty": "데이터 없음",
+            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+            "search": "에서 검색: ",
+            "zeroRecords": "일치하는 데이터가 없어요.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+            "paginate": {
+            "next": "다음",
+            "previous": "이전"
+            }
+            },
+            responsive: true
+        })
+    })
+
+})
+</script>

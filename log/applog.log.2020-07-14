@@ -1,0 +1,2 @@
+2020-07-14 15:27:07 [ERROR] - CODE: ER_BAD_FIELD_ERROR, SQL: SELECT * FROM user WHERE user_authority=normal
+2020-07-14 15:27:07 [ERROR] - CODE: ER_BAD_FIELD_ERROR, SQL: SELECT * FROM user WHERE user_authority=normal

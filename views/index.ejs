@@ -42,12 +42,12 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="">아이러브톡 일반회원</a>
-                                    <a class="nav-link" href="">프로필 회원 승인</a>
-                                    <a class="nav-link" href="">채팅알바 회원</a>
+                                    <a class="nav-link" onclick="change_iframe('/views/reg_member')">아이러브톡 일반회원</a>
+                                    <a class="nav-link" onclick="change_iframe('/views/profile_confirm')">프로필 회원 승인</a>
+                                    <a class="nav-link" onclick="change_iframe('/views/chat_staff')">채팅알바 회원</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="">
+                            <a class="nav-link" onclick="change_iframe('/views/payment')">
                               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                               결제내역
                           </a>
@@ -59,18 +59,18 @@
                         </a>
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="">공지사항</a>
-                                <a class="nav-link" href="">문의</a>
-                                <a class="nav-link" href="">신고</a>
+                                <a class="nav-link" onclick="change_iframe('/views/notice')">공지사항</a>
+                                <a class="nav-link"onclick="change_iframe('/views/inquire')">문의</a>
+                                <a class="nav-link" onclick="change_iframe('/views/report')">신고</a>
                               
                               </nav>
                         </div>
 
-                        <a class="nav-link" href="">
+                        <a class="nav-link"  onclick="change_iframe('/views/push')">
                           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                          PUSH관리
                       </a>
-                      <a class="nav-link" href="">
+                      <a class="nav-link" onclick="change_iframe('/views/cash_request')">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                        현금출금 요청
                     </a>
@@ -82,6 +82,9 @@
             <div id="layoutSidenav_content">
                 <main>
                    <!--dashboard-->
+                   <iframe id="main_frame" name="main_frame" src="/views" scrolling="yes"
+                   style="display:block;  border:none; width:100%; height: 100vh;"></iframe>
+                   
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
@@ -102,13 +105,8 @@
     </body>
 </html>
 <script>
-  function close(){
-    if(document.getElementById('toggle').getAttribute('class')=='sb-nav-fixed sb-sidenav-toggled')
-    {
-      document.getElementById('toggle').setAttribute('class','sb-nav-fixed');
-    }
-    else {
-      document.getElementById('toggle').setAttribute('class','sb-nav-fixed sb-sidenav-toggled')
-    }
-  }
+  function change_iframe(url){
+    var iframe=document.getElementById("main_frame");
+    iframe.src=url;
+}
 </script>

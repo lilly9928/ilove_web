@@ -1,7 +1,7 @@
 <% include ../reference.ejs %>
 
-<div class="card-body" style="padding: 5%;">
-    <div class="table-responsive">
+<div class="card-body" >
+    <div class="table-responsive" style="padding-left: 5%;">
         <table id="myTable" class="hover" style="width:100%">
             <thead>
                 <tr>
@@ -35,16 +35,16 @@ $(document).ready(function () {
             console.log(data)
             }
         }
-        var table = $('#myTable').DataTable({
+        var show = $('#myTable').DataTable({
             data:data,
             "language": {
-            "emptyTable": "데이터가 없어요.",
+            "emptyTable": "데이터가 없습니다.",
             "lengthMenu": "페이지당 _MENU_ 개씩 보기",
             "info": "현재 _START_ - _END_ / _TOTAL_건",
             "infoEmpty": "데이터 없음",
             "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "에서 검색: ",
-            "zeroRecords": "일치하는 데이터가 없어요.",
+            "search": "검색: ",
+            "zeroRecords": "일치하는 데이터가 없습니다.",
             "loadingRecords": "로딩중...",
             "processing":     "잠시만 기다려 주세요...",
             "paginate": {
@@ -52,9 +52,18 @@ $(document).ready(function () {
             "previous": "이전"
             }
             },
-            responsive: true
+            bAutoWidth: false,
+            responsive: true, 
+            select: {
+                        style: 'multi'
+                     },
+           
         })
+         //선택 row 데이터 가져오기 
+       show.on( 'select', function ( e, dt, type, indexes ) {
+            var rowData = show.rows( indexes ).data();
+            var delete_row = rowData[0]
+        } )
     })
-
 })
 </script>

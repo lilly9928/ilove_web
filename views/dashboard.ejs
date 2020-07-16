@@ -22,9 +22,22 @@
                         </div>
                     </div>
                     <div class="col-xl-3">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">어제 매출총액</div>
+                        <div class="card bg-danger text-white mb-4">
+                            <div class="card-body">이달의 매출총액</div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
+                            <span id="month"></span>
+                            </div>
+                        </div>
+                        <div class="card bg-warning text-white mb-4">
+                            <div class="card-body">오늘의 매출총액</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span id="today"></span>
+                            </div>
+                        </div>
+                        <div class="card bg-warning text-white mb-4">
+                            <div class="card-body">어제의 매출총액</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span id="yesterday"></span>
                             </div>
                         </div>
                     </div>
@@ -35,7 +48,7 @@
     <style>
     #chartdiv {
         width: 100%;
-        height: 500px;
+        height: 370px;
       }
       
       </style>
@@ -58,29 +71,63 @@
       // Create chart instance
           var chart = am4core.create("chartdiv", am4charts.XYChart);
 
-          // Add data
+          /* Add data*/
+          //날짜 
+          let todayfomate = new Date();
+          var year=todayfomate.getFullYear()
+          var month=todayfomate.getMonth()+1
+          var day=todayfomate.getDate()
+          if (day < 10) {
+            day = '0' + day;
+          }
 
+          if (month < 10) {
+            month = '0' + month;
+          }
+          
+
+          var today= year+'-'+month+'-'+day
+          var yesterday=year+'-'+month+'-'+(day-1)
+          //db데이터 
           var table = 'payment'
           var value = 'payment_id<>" " ORDER BY payment_date'
-          var data_value=" "
+          //날짜계산
+          var data_value=0
+          var month_value=0
+          var today_value=0
+          var yesterday_value=0
+          //표그리기용 데이터
           var data = []
+
+          //데이터호출
           a2s_getDBByCond(table, value, function (res) {
-              if (res.length != 0) {
+              //데이터가 있으면 데이터만큼 for문을 돌면서 같은 날짜별로 더하기
+                if (res.length != 0) {
                   for (var i = 0; i < res.length; i++) {
                       if(i!=0){
-                          var i_date=res[i].payment_date
-                          var before=res[i-1].payment_date
-                          if(i_date.split(' ')[0]==before.split(' ')[0]){
+                          var i_date=res[i].payment_date.split(' ')[0]
+                          var before=res[i-1].payment_date.split(' ')[0]
+                          if(i_date==before){
                               var date=res[i].payment_date
                               data_value+=res[i].payment_amount
+                              if(i_date==today){         //오늘매출
+                                  today_value=data_value
+                              }
+                              else if(i_date==yesterday)    //어제매출
+                              {
+                                yesterday_value=data_value
+                              }
                           }
                           else{
-                            var input ={"date":date,"value":data_value}
-                            data.push(input)
-                            data_value=" "
+                            var input ={"date":date,"value":data_value}    
+                            data.push(input)             //그래프값 넣어주기
+
+                            data_value=" "      //초기화
+
                             var date=res[i].payment_date
                             data_value=res[i].payment_amount
-                            if(i+1==res.length){
+
+                            if(i+1==res.length){        //마지막데이터 값 넣어주기
                             var input ={"date":date,"value":data_value}
                             data.push(input)
                             }
@@ -90,10 +137,17 @@
                             var date=res[i].payment_date
                             data_value=res[i].payment_amount
                       }
-                      console.log(input)
-                      console.log(data)
+                      if(res[i].payment_date.split('-')[1]==month){
+                          month_value+=res[i].payment_amount            //한달 매출 
+                         
+                      }
                   }
+                
               }
+              $("#month").text("총 "+month_value+"원")
+              $("#today").text("총 "+today_value+"원")
+              $("#yesterday").text("총 "+yesterday_value+"원")
+
       chart.data = data
        // Set input format for the dates
        chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";

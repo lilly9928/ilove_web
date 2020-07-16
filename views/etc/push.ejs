@@ -54,7 +54,13 @@ $(document).ready(function () {
             select: {
                         style: 'multi'
                      },
-           
+            dom: 'Bfrtip',
+            buttons: [
+               
+                'excel',
+                'print'
+            ]
+            
         })
          //선택 row 데이터 가져오기 
        show.on( 'select', function ( e, dt, type, indexes ) {

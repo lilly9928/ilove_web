@@ -3,6 +3,35 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+      <!-- HTML -->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">ILOVE</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">관리자페이지</li>
+                </ol>
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area mr-1"></i>
+                                매출현황
+                            </div>
+                            <div id="chartdiv"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="card bg-warning text-white mb-4">
+                            <div class="card-body">어제 매출총액</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
     <style>
     #chartdiv {
         width: 100%;
@@ -14,6 +43,7 @@
       <!-- Resources -->
       <script src="https://www.amcharts.com/lib/4/core.js"></script>
       <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+      <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
       <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
       
       <!-- Chart code -->
@@ -21,6 +51,7 @@
       am4core.ready(function() {
       
       // Themes begin
+      am4core.useTheme(am4themes_material);
       am4core.useTheme(am4themes_animated);
       // Themes end
       
@@ -30,21 +61,42 @@
           // Add data
 
           var table = 'payment'
-          var value = 'payment_id<>" "'
+          var value = 'payment_id<>" " ORDER BY payment_date'
+          var data_value=" "
           var data = []
           a2s_getDBByCond(table, value, function (res) {
               if (res.length != 0) {
                   for (var i = 0; i < res.length; i++) {
-                      var input = '{'+'"date":'+'"'+res[i].payment_date+'"'+',"value":'+res[i].payment_amount+'}'
-                      data.push(input)
+                      if(i!=0){
+                          var i_date=res[i].payment_date
+                          var before=res[i-1].payment_date
+                          if(i_date.split(' ')[0]==before.split(' ')[0]){
+                              var date=res[i].payment_date
+                              data_value+=res[i].payment_amount
+                          }
+                          else{
+                            var input ={"date":date,"value":data_value}
+                            data.push(input)
+                            data_value=" "
+                            var date=res[i].payment_date
+                            data_value=res[i].payment_amount
+                            if(i+1==res.length){
+                            var input ={"date":date,"value":data_value}
+                            data.push(input)
+                            }
+                          }
+                      }
+                      else{
+                            var date=res[i].payment_date
+                            data_value=res[i].payment_amount
+                      }
                       console.log(input)
                       console.log(data)
                   }
               }
       chart.data = data
-            })
-      // Set input format for the dates
-      chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";
+       // Set input format for the dates
+       chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";
       
       // Create axes
       var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -96,8 +148,7 @@
       dateAxis.keepSelection = true;
       
       
+            })
+     
       }); // end am4core.ready()
       </script>
-      
-      <!-- HTML -->
-      <div id="chartdiv"></div>

@@ -20,7 +20,7 @@
 
 $(document).ready(function () {
     var table ='payment'
-    var value='""'
+    var value='payment_id!=""'
     var data =[]
     a2s_getDBByCond(table, value, function (res) {
         if(res.length!=0){

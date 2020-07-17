@@ -25,7 +25,13 @@ $(document).ready(function () {
     a2s_getDBByCond(table, value, function (res) {
         if(res.length!=0){
             for(var i=0; i<res.length;i++){
-            var input = [res[i].user_id, res[i].user_nickname,res[i].user_gender,res[i].user_birthday,res[i].user_phone]
+                if(res[i].user_gender=='F'){
+                    var gender='여성'
+                }
+                else {
+                    var gender = '남성'
+                }
+            var input = [res[i].user_id, res[i].user_nickname,gender,res[i].user_birthday,res[i].user_phone]
             data.push(input)
             console.log(input)
             console.log(data)

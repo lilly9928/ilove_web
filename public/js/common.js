@@ -221,3 +221,21 @@ function a2s_getDBSomeGroupBy(table, fields, group, callback) {
         }
     });
 }
+function a2s_deleteDBByCond(table, cond, callback) {
+    var res;
+    $.ajax({
+        url: "/api/db/byCond",
+        type: "DELETE",
+        data: {table: table, cond: cond},
+        success: function(result, textStatus, jqXHR){
+            //console.log(`result1`, result);
+            //console.log(`status1`, jqXHR.status);
+            callback(result);
+        },
+        error: function(jqXHR, error) {
+            //console.log(`error1`, error);
+            //console.log(`status1`, jqXHR.status);
+            callback(error);
+        }
+    });
+}

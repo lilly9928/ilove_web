@@ -1,0 +1,2 @@
+2020-07-21 12:22:31 [ERROR] - CODE: ER_BAD_FIELD_ERROR, SQL: UPDATE `notice` SET `notice_title` = 'dfd', `notice_contents` = '테스트123' WHERE notice= "1"
+2020-07-21 12:22:31 [ERROR] - CODE: ER_BAD_FIELD_ERROR, SQL: UPDATE `notice` SET `notice_title` = 'dfd', `notice_contents` = '테스트123' WHERE notice= "1"

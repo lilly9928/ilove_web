@@ -15,11 +15,11 @@
             </thead>
         </table>
         <!--추가수정삭제버튼-->
-<div class="btn-group" role="group" aria-label="..." style="padding: 2%;float:right">
-    <button type="button" class="btn btn-default" id="add">추가</button>
-    <button type="button" class="btn btn-default" id="modify">수정</button>
-    <button type="button" class="btn btn-default" id="delete">삭제</button>
-</div>
+        <div class="btn-group" role="group" aria-label="..." style="padding: 2%;float:right">
+            <button type="button" class="btn btn-default" id="add">추가</button>
+            <button type="button" class="btn btn-default" id="modify">수정</button>
+            <button type="button" class="btn btn-default" id="delete">삭제</button>
+        </div>
     </div>
     <!--테이블끝-->
 </div>
@@ -42,7 +42,8 @@
                     <div class="col-md-6">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">아이디</span>
-                            <input id="iuser_id"type="text" class="form-control" placeholder="id" aria-describedby="basic-addon1">
+                            <input id="iuser_id" type="text" class="form-control" placeholder="id"
+                                aria-describedby="basic-addon1">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -59,9 +60,9 @@
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">어플 성별</span>
                             <div class="form-control">
-                                <input type="radio" name="gener" id="m"checked="checked" /> 
+                                <input type="radio" name="gener" id="m" checked="checked" />
                                 <span class="up">남성</span>
-                                <input type="radio" name="gener" id="w"/> 
+                                <input type="radio" name="gener" id="w" />
                                 <span class="up">여성</span>
 
                             </div>
@@ -72,8 +73,9 @@
             <div class="modal-footer">
                 <ul class="pager">
                     <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li id="deletebtn"><a onclick="Clickdelete()">삭제</a></li>
                     <li><a style="display:none;" id="modifybtn" onclick="Clickmodify()">수정</a></li>
-                    <li><a style="display: none;" id="savebtn"onclick="Clicksave()">저장</a></li>
+                    <li><a style="display: none;" id="savebtn" onclick="Clicksave()">저장</a></li>
                 </ul>
             </div>
         </div>
@@ -82,8 +84,8 @@
 <!--편집모달끝-->
 
 <!--삭제모달-->
-<div class="modal fade bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true"
-    data-backdrop="false">
+<div class="modal fade bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+    aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog" role="document">
         <!--Content-->
         <div class="modal-content">
@@ -94,15 +96,15 @@
                         <p></p>
                         <p class="text-center"><i class="fas fa-trash-alt purple-text fa-2x"></i></p>
                     </div>
-                        <p id="deleteString">선택한 항목을 정말 삭제하시겠습니까?</p>
-                    </div>
+                    <p id="deleteString">선택한 항목을 정말 삭제하시겠습니까?</p>
                 </div>
+            </div>
             <!--Footer-->
             <div class="modal-footer justify-content-center">
                 <ul class="pager">
-                <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
-                <li><a id="deletebtn" onclick="Clickdelete()">삭제</a></li>
-            </ul>
+                    <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li><a id="deletebtn" onclick="Clickdelete()">삭제</a></li>
+                </ul>
             </div>
         </div>
         <!--/.Content-->
@@ -111,22 +113,22 @@
 <!--삭제모달 끝-->
 
 <script>
-    var delete_row=[]
+    var delete_row = []
 
     $(document).ready(function () {
         var table = 'user'
         var value = 'user_authority="manager"'
         var data = []
-        
+
         a2s_getDBByCond(table, value, function (res) {
             if (res.length != 0) {
                 for (var i = 0; i < res.length; i++) {
-                    if(res[i].user_gender=='F'){
-                    var gender='여성'
-                }
-                else {
-                    var gender = '남성'
-                }
+                    if (res[i].user_gender == 'F') {
+                        var gender = '여성'
+                    }
+                    else {
+                        var gender = '남성'
+                    }
                     var input = [res[i].user_id, res[i].user_password, gender]
                     data.push(input)
                     console.log(input)
@@ -160,13 +162,28 @@
             //선택 row 데이터 가져오기 
             show.on('select', function (e, dt, type, indexes) {
                 var rowData = show.rows(indexes).data();
-                 delete_row = rowData[0]
+                delete_row = rowData[0]
             })
-        })
+
+            show.on('dblclick', 'tr', function () {
+              if (delete_row.length != 0) {
+                $('#iuser_id').val(delete_row[0])
+                $('#iuser_password').val(delete_row[1])
+                if (delete_row[2] == '여성') {
+                    $('input:radio[id="w"]').prop('checked', true);
+                }
+                else $('input:radio[id="m"]').prop('checked', true);
+
+                $("#modifybtn").css('display', 'inline');
+                $("#edit_modal").modal();
+            }
+                
+            });
+        })//db end 
         //추가버튼클릭
         $("#add").click(function () {
-            $('#iuser_id').val('')
-            $('#iuser_password').val('')
+            $('#iuser_id').val(' ')
+            $('#iuser_password').val(' ')
             $("input:radio[id='m']").prop('checked', true);
             $("#savebtn").css('display', 'inline');
             $("#edit_modal").modal();
@@ -174,77 +191,96 @@
         });
         //수정버튼클릭
         $("#modify").click(function () {
-            if(delete_row.length!=0){
-            $('#iuser_id').val(delete_row[0])
-            $('#iuser_password').val(delete_row[1])
-            if(delete_row[2]=='F'){
-                $('input:radio[id="w"]').prop('checked', true); 
-            }
-            else $('input:radio[id="m"]').prop('checked', true);
+            if (delete_row.length != 0) {
+                $('#iuser_id').val(delete_row[0])
+                $('#iuser_password').val(delete_row[1])
+                if (delete_row[2] == '여성') {
+                    $('input:radio[id="w"]').prop('checked', true);
+                }
+                else $('input:radio[id="m"]').prop('checked', true);
 
-            $("#modifybtn").css('display', 'inline');
-            $("#edit_modal").modal();
+                $("#modifybtn").css('display', 'inline');
+                $("#edit_modal").modal();
             }
-            else{
+            else {
                 alert("수정할 데이터를 선택해 주세요.")
             }
-            
+
         });
-        
+
         $("#delete").click(function () {
             $("#modifybtn").css('display', 'inline');
             $("#deleteModal").modal();
         });
     })//도큐멘트끝
 
-    function Clicksave(){
+//저장버튼이벤트
+    function Clicksave() {
         var new_manager = new Object();
-        new_manager.user_id=$('#iuser_id').val()
-        new_manager.user_password=$('#iuser_password').val()
-        if($('input:radio[id="w"]').is(':checked')==true){
-            new_manager.user_gender='F'
+        new_manager.user_id = $('#iuser_id').val()
+        new_manager.user_password = $('#iuser_password').val()
+        if ($('input:radio[id="w"]').is(':checked') == true) {
+            new_manager.user_gender = 'F'
         }
-        else{
-            new_manager.user_gender='M'
+        else {
+            new_manager.user_gender = 'M'
         }
-       
-        new_manager.user_authority='manager'
-        a2s_addDB('user',JSON.stringify(new_manager),function(res) {
-            if(res.affectedRows > 0) {
+
+        new_manager.user_authority = 'manager'
+        a2s_addDB('user', JSON.stringify(new_manager), function (res) {
+            if (res.affectedRows > 0) {
                 alert('유저가 등록되었습니다.')
+                window.location.reload()
             }
-            else{
+            else {
                 alert('유저 등록이 실패하였습니다.')
             }
             $("#edit_modal").modal('hide');
         })
-      
-    }
 
-    function Clickmodify(){
-        var editcond='user_id= "'+$('#iuser_id').val()+'"'
+    }
+//수정버튼이벤트
+    function Clickmodify() {
+        var editcond = 'user_id= "' + delete_row[0] + '"'
         var edit_manager = new Object();
-        edit_manager.user_password=$('#iuser_password').val()
-        if($('input:radio[id="w"]').is(':checked')==true){
-            edit_manager.user_gender='F'
-        }
-        else{
-            edit_manager.user_gender='M'
-        }
-        a2s_modifyDBByCond('user',JSON.stringify(edit_manager), editcond, function(res) {
-            if(res.affectedRows > 0) {
-            alert('데이터 수정 완료되었습니다.')
+        edit_manager.user_password = $('#iuser_password').val()
+        if ($('input:radio[id="w"]').is(':checked') == true) {
+            edit_manager.user_gender = 'F'
         }
         else {
-            alert('데이터 수정 실패하였습니다.')
-           
+            edit_manager.user_gender = 'M'
         }
-        $('.modal').modal('hide');
+        a2s_modifyDBByCond('user', JSON.stringify(edit_manager), editcond, function (res) {
+            if (res.affectedRows > 0) {
+                alert('데이터 수정 완료되었습니다.')
+                window.location.reload()
+            }
+            else {
+                alert('데이터 수정 실패하였습니다.')
+
+            }
+            $('.modal').modal('hide');
         })
     }
-
-    function Cancel(){
+//취소버튼이벤트
+    function Cancel() {
         $(".modal").modal('hide');
     }
+
+function Clickdelete(){
+    var editcond = 'user_id= "' + delete_row[0] + '"'
+    a2s_deleteDBByCond('user', editcond, function(res) {
+        if (res.affectedRows > 0) {
+                alert('데이터가 삭제 되었습니다')
+                window.location.reload()
+            }
+            else {
+                alert('데이터 삭제 실패하였습니다.')
+
+            }
+            $('.modal').modal('hide');
+    })
+
+}
 
 </script>

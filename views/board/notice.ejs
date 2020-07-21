@@ -1,64 +1,273 @@
 <% include ../reference.ejs %>
-<div class="card-body" >
+<!--그리드보여주기-->
+<div class="card-body">
     <div class="table-responsive" style="padding-left: 5%;">
         <table id="myTable" class="hover" style="width:100%">
             <thead>
                 <tr>
                     <th>제목</th>
                     <th>날짜</th>
-                    
-                    
                 </tr>
             </thead>
         </table>
+        <div class="btn-group" role="group" aria-label="..." style="padding: 2%;float:right">
+            <button type="button" class="btn btn-default" id="add">추가</button>
+            <button type="button" class="btn btn-default" id="delete">삭제</button>
         </div>
+    </div>
+</div>
+
+<!--내용 모달시작-->
+<div class="modal fade bd-example-modal-lg" id="show_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content card mb-4">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--모달내용-->
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-10">
+                        <h1 id="title"></h1>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 id="date"></h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-12" style="padding-top: 1%;padding-bottom: 1%;">
+                    <p id="context"></p>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <ul class="pager">
+                    <li id="cancelbtn"><a onclick="Cancel()">닫기</a></li>
+                    <li><a onclick="Clickmodify1()">수정</a></li>
+                    <li><a onclick="Clickdelete()">삭제</a></li>
+                </ul>
+            </div>
         </div>
-    
+    </div>
+</div>
+<!--내용 모달끝-->
+<!--편집 모달시작-->
+<div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content card mb-4">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--모달내용-->
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">제목</span>
+                            <input id="inotice_title" type="text" class="form-control" placeholder="제목"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">날짜</span>
+                            <input id="inotice_date" type="text" class="form-control" placeholder="날짜"
+                                aria-describedby="basic-addon1" disabled="true">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-row" style="padding-top: 3%;">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <label for="exampleFormControlTextarea1">내용</label>
+                            <textarea class="form-control rounded-0" id="inotice_contents" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <ul class="pager">
+                    <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li><a style="display:none;" id="modifybtn" onclick="Clickmodify2()">수정</a></li>
+                    <li><a style="display: none;" id="savebtn" onclick="Clicksave()">저장</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--편집모달끝-->
+<!--삭제모달-->
+<div class="modal fade bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <p></p>
+                        <p class="text-center"><i class="fas fa-trash-alt purple-text fa-2x"></i></p>
+                    </div>
+                    <p id="deleteString">선택한 항목을 정말 삭제하시겠습니까?</p>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <ul class="pager">
+                    <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li><a id="deletebtn" onclick="Clickdelete()">삭제</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--삭제모달 끝-->
+
 <script>
+    var row_info = []
+    $(document).ready(function () {
+        var table = 'notice'
+        var value = 'notice_id!=""'
+        var data = []
 
-$(document).ready(function () {
-    var table ='notice'
-    var value='notice_id!=""'
-    var data =[]
-    a2s_getDBByCond(table, value, function (res) {
-        if(res.length!=0){
-            for(var i=0; i<res.length;i++){
-            var input = [res[i].notice_title, res[i].notice_date]
-            data.push(input)
-            console.log(input)
-            console.log(data)
+        let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+
+        a2s_getDBByCond(table, value, function (res) {
+            if (res.length != 0) {
+                for (var i = 0; i < res.length; i++) {
+                    var input = [res[i].notice_title, res[i].notice_date, res[i].notice_contents, res[i].notice_id]
+                    data.push(input)
+                    console.log(input)
+                    console.log(data)
+                }
             }
-        }
-        var show = $('#myTable').DataTable({
-            data:data,
-            "language": {
-            "emptyTable": "데이터가 없습니다.",
-            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-            "info": "현재 _START_ - _END_ / _TOTAL_건",
-            "infoEmpty": "데이터 없음",
-            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
-            "zeroRecords": "일치하는 데이터가 없습니다.",
-            "loadingRecords": "로딩중...",
-            "processing":     "잠시만 기다려 주세요...",
-            "paginate": {
-            "next": "다음",
-            "previous": "이전"
+            var show = $('#myTable').DataTable({
+                data: data,
+                "language": {
+                    "emptyTable": "데이터가 없습니다.",
+                    "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+                    "info": "현재 _START_ - _END_ / _TOTAL_건",
+                    "infoEmpty": "데이터 없음",
+                    "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                    "search": "검색: ",
+                    "zeroRecords": "일치하는 데이터가 없습니다.",
+                    "loadingRecords": "로딩중...",
+                    "processing": "잠시만 기다려 주세요...",
+                    "paginate": {
+                        "next": "다음",
+                        "previous": "이전"
+                    }
+                },
+                bAutoWidth: false,
+                responsive: true,
+                select: {
+                    style: 'multi'
+                },
+
+            })
+            //선택 row 데이터 가져오기 
+            show.on('select', function (e, dt, type, indexes) {
+                var rowData = show.rows(indexes).data();
+                row_info = rowData[0]
+            })
+            //버틀클릭 - 내용 창열기 
+            show.on('dblclick', 'tr', function () {
+                $("#title").text("제목:" + row_info[0]);
+                $("#date").text("날짜: " + row_info[1]);
+                $("#context").text(row_info[2]);
+                $("#show_modal").modal();
+            });
+        })//db end 
+        
+        //추가버튼클릭
+        $("#add").click(function () {
+            $('#inotice_title').val(' ')
+            $('#inotice_date').val(year+'-'+month+'-'+date)
+            $('#inotice_contents').text(' ')
+            $("#savebtn").css('display', 'inline');
+            $("#edit_modal").modal();
+        });
+    })//도큐멘트끝
+
+    //내용 창 - 수정버튼 클릭 
+    function Clickmodify1() {
+        $("#inotice_title").val(row_info[0]);
+        $("#inotice_date").val(row_info[1]);
+        $("#inotice_contents").text(row_info[2]);
+        $("#modifybtn").css('display', 'inline');
+        $("#show_modal").modal('hide');
+        $("#edit_modal").modal('show');
+    }
+    //수정 창 - 수정버튼 클릭
+    function Clickmodify2() {
+        var editcond = 'notice_id= "' + row_info[3] + '"'
+        var edit_notice = new Object();
+        edit_notice.notice_title = $('#inotice_title').val()
+        edit_notice.notice_contents = $('#inotice_contents').val()
+
+        a2s_modifyDBByCond('notice', JSON.stringify(edit_notice), editcond, function (res) {
+            if (res.affectedRows > 0) {
+                alert('데이터 수정 완료되었습니다.')
+                window.location.reload()
             }
-            },
-            bAutoWidth: false,
-            responsive: true, 
-            select: {
-                        style: 'multi'
-                     },
-           
+            else {
+                alert('데이터 수정 실패하였습니다.')
+
+            }
+            $('.modal').modal('hide');
         })
-         //선택 row 데이터 가져오기 
-       show.on( 'select', function ( e, dt, type, indexes ) {
-            var rowData = show.rows( indexes ).data();
-            var delete_row = rowData[0]
-        } )
-    })
+    }
+    //편집창 - 저장 버튼 
+    function Clicksave(){
+        var new_notice = new Object();
+        new_notice.notice_title = $('#inotice_title').val()
+        new_notice.notice_contents = $('#inotice_contents').val()
+        new_notice.notice_date = $('#inotice_date').val()
+       
+        a2s_addDB('notice', JSON.stringify(new_notice), function (res) {
+            if (res.affectedRows > 0) {
+                alert('공지사항이 등록되었습니다.')
+                window.location.reload()
+            }
+            else {
+                alert('공지사항 등록에 실패하였습니다.')
+            }
+            $('.modal').modal('hide');
+        })
+    }
+    //취소버튼이벤트
+    function Cancel() {
+        $(".modal").modal('hide');
+    }
+    //삭제버튼 
+    function Clickdelete(){
+    var editcond = 'notice_id= "' + row_info[3] + '"'
+    a2s_deleteDBByCond('notice', editcond, function(res) {
+        if (res.affectedRows > 0) {
+                alert('데이터가 삭제 되었습니다')
+                window.location.reload()
+            }
+            else {
+                alert('데이터 삭제 실패하였습니다.')
 
-})
+            }
+            $('.modal').modal('hide');
+    })
+}
+
 </script>

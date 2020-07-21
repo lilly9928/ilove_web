@@ -1,5 +1,5 @@
 <% include ../reference.ejs %>
-<div class="card-body" >
+<div class="card-body">
     <div class="table-responsive" style="padding-left: 5%;">
         <table id="myTable" class="hover" style="width:100%">
             <thead>
@@ -8,52 +8,220 @@
                     <th>날짜</th>
                     <th>유저아이디</th>
                     <th>확인여부</th>
-                    
-                    
                 </tr>
             </thead>
         </table>
+    </div>
+</div>
+
+<!--편집 모달시작-->
+<div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content card mb-4">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--모달내용-->
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">제목</span>
+                            <input id="iinquire_title" type="text" class="form-control" placeholder="제목"
+                                aria-describedby="basic-addon1" disabled="true">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">문의자</span>
+                            <input id="iinquire_id" type="text" class="form-control" aria-describedby="basic-addon1"
+                                disabled="true">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">문의날짜</span>
+                            <input id="iinquire_date" type="text" class="form-control" placeholder="날짜"
+                                aria-describedby="basic-addon1" disabled="true">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-row" style="padding-top: 3%;">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <label for="iinquire_contents">문의내용</label>
+                            <textarea class="form-control rounded-0" id="iinquire_contents" rows="10"
+                                disabled="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+               <div class ="form-row"style="padding-top: 3%;">
+                   <div class="col-md-9">
+                   </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">답변날짜</span>
+                            <input id="iinquire_answer_date" type="text" class="form-control" placeholder="날짜"
+                                aria-describedby="basic-addon1" disabled="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" style="padding-top: 3%;">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <label for="iinquire_answer">답변내용</label>
+                            <textarea class="form-control rounded-0" id="iinquire_answer" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <ul class="pager">
+                    <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li><a id="savebtn" style="display: none;" onclick="savemodal()">저장</a></li>
+                </ul>
+            </div>
         </div>
+    </div>
+</div>
+<!--편집모달끝-->
+<!--삭제모달-->
+<div class="modal fade bd-example-modal-lg" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <p></p>
+                        <p class="text-center"><i class="fas fa-trash-alt purple-text fa-2x"></i></p>
+                    </div>
+                    <p id="deleteString">문의 답변은 수정 하실 수 없습니다. 저장 하시겠습니까?</p>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <ul class="pager">
+                    <li id="cancelbtn"><a onclick="Cancel()">취소</a></li>
+                    <li><a id="realsavebtn" onclick="Clicksave()">저장</a></li>
+                </ul>
+            </div>
         </div>
-    
+        <!--/.Content-->
+    </div>
+</div>
+<!--삭제모달 끝-->
+
+
 <script>
+    var row_info = []
 
-$(document).ready(function () {
-    var table ='inquire'
-    var value='inquire_type="qna"'
-    var data =[]
-    a2s_getDBByCond(table, value, function (res) {
-        if(res.length!=0){
-            for(var i=0; i<res.length;i++){
-                if(res[i].check==0){
-                    var check="미응답"
-                }else var check="응답"
-            var input = [res[i].inquire_title, res[i].date,res[i].user_id,check]
-            data.push(input)
-            console.log(input)
-            console.log(data)
+    let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+
+    $(document).ready(function () {
+        var table = 'inquire'
+        var value = 'inquire_type="qna"'
+        var data = []
+        a2s_getDBByCond(table, value, function (res) {
+            if (res.length != 0) {
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].check == 0) {
+                        var check = "미응답"
+                    } else var check = "응답"
+                    var input = [res[i].inquire_title, res[i].date, res[i].user_id, check, res[i].id, res[i].inquire_content, res[i].inquire_answer,res[i].answer_date]
+                    data.push(input)
+                    console.log(input)
+                    console.log(data)
+                }
             }
-        }
-        var table = $('#myTable').DataTable({
-            data:data,
-            "language": {
-            "emptyTable": "데이터가 없습니다.",
-            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-            "info": "현재 _START_ - _END_ / _TOTAL_건",
-            "infoEmpty": "데이터 없음",
-            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-            "search": "검색: ",
-            "zeroRecords": "일치하는 데이터가 없습니다.",
-            "loadingRecords": "로딩중...",
-            "processing":     "잠시만 기다려 주세요...",
-            "paginate": {
-            "next": "다음",
-            "previous": "이전"
+            var show = $('#myTable').DataTable({
+                data: data,
+                "language": {
+                    "emptyTable": "데이터가 없습니다.",
+                    "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+                    "info": "현재 _START_ - _END_ / _TOTAL_건",
+                    "infoEmpty": "데이터 없음",
+                    "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                    "search": "검색: ",
+                    "zeroRecords": "일치하는 데이터가 없습니다.",
+                    "loadingRecords": "로딩중...",
+                    "processing": "잠시만 기다려 주세요...",
+                    "paginate": {
+                        "next": "다음",
+                        "previous": "이전"
+                    }
+                },
+                bAutoWidth: false,
+                responsive: true,
+                select: {
+                    style: 'multi'
+                },
+
+            })
+            //선택 row 데이터 가져오기 
+            show.on('select', function (e, dt, type, indexes) {
+                var rowData = show.rows(indexes).data();
+                row_info = rowData[0]
+            })
+            //버틀클릭 - 내용 창열기 
+            show.on('dblclick', 'tr', function () {
+                $("#iinquire_title").val(row_info[0]);
+                $("#iinquire_date").val(row_info[1]);
+                $("#iinquire_id").val(row_info[2])
+                $("#iinquire_contents").text(row_info[5]);
+                if (row_info[3] == "미응답") {
+                    $("#iinquire_answer").text(" ");
+                    $("#iinquire_answer").attr("disabled", false);
+                    $("#iinquire_answer_date").val(year + '-' + month + '-' + date)
+                    $("#savebtn").css('display', 'inline');
+                }
+                else {
+                    $("#iinquire_answer").text(row_info[6]);
+                    $("#iinquire_answer").attr("disabled", true);
+                    $("#iinquire_answer_date").val(row_info[7])
+                    
+                }
+
+                $("#edit_modal").modal();
+            });
+        })//db end 
+    })//도큐먼트 끝
+    //문의창 - 저장버튼 
+    function savemodal() {
+        $("#edit_modal").modal('hide');
+        $("#saveModal").modal('show');
+    }
+    //취소버튼이벤트
+    function Cancel() {
+        $(".modal").modal('hide');
+    }
+    //저장모달 - 저장 버튼 
+    function Clicksave() {
+        var editcond = 'id= "' + row_info[4] + '" AND inquire_type="qna" '
+        var edit_inquire = new Object();
+        edit_inquire.inquire_answer = $('#iinquire_answer').val()
+        edit_inquire.check = 1
+        edit_inquire.answer_date= $("#iinquire_answer_date").val()
+        a2s_modifyDBByCond('inquire', JSON.stringify(edit_inquire), editcond, function (res) {
+            if (res.affectedRows > 0) {
+                alert('답변작성이 완료되었습니다.')
+                window.location.reload()
             }
-            },
-            responsive: true
+            else {
+                alert('답변 작성 실패하였습니다.')
+
+            }
+            $('.modal').modal('hide');
         })
-    })
-
-})
+    }
 </script>

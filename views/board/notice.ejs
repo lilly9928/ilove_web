@@ -193,11 +193,11 @@
                 $("#show_modal").modal();
             });
         })//db end 
-        
+
         //추가버튼클릭
         $("#add").click(function () {
             $('#inotice_title').val(' ')
-            $('#inotice_date').val(year+'-'+month+'-'+date)
+            $('#inotice_date').val(year + '-' + month + '-' + date)
             $('#inotice_contents').text(' ')
             $("#savebtn").css('display', 'inline');
             $("#edit_modal").modal();
@@ -233,12 +233,12 @@
         })
     }
     //편집창 - 저장 버튼 
-    function Clicksave(){
+    function Clicksave() {
         var new_notice = new Object();
         new_notice.notice_title = $('#inotice_title').val()
         new_notice.notice_contents = $('#inotice_contents').val()
         new_notice.notice_date = $('#inotice_date').val()
-       
+
         a2s_addDB('notice', JSON.stringify(new_notice), function (res) {
             if (res.affectedRows > 0) {
                 alert('공지사항이 등록되었습니다.')
@@ -255,10 +255,10 @@
         $(".modal").modal('hide');
     }
     //삭제버튼 
-    function Clickdelete(){
-    var editcond = 'notice_id= "' + row_info[3] + '"'
-    a2s_deleteDBByCond('notice', editcond, function(res) {
-        if (res.affectedRows > 0) {
+    function Clickdelete() {
+        var editcond = 'notice_id= "' + row_info[3] + '"'
+        a2s_deleteDBByCond('notice', editcond, function (res) {
+            if (res.affectedRows > 0) {
                 alert('데이터가 삭제 되었습니다')
                 window.location.reload()
             }
@@ -267,7 +267,7 @@
 
             }
             $('.modal').modal('hide');
-    })
-}
+        })
+    }
 
 </script>

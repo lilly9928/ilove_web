@@ -1,5 +1,5 @@
 <% include reference.ejs %>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
    
@@ -564,6 +564,8 @@
     </body>
 </html>
 <script>
+     var date = new Date();
+
 function ClickNext(number){
    $("#join"+number-1).css('visibility','hidden');
    $("#join"+number).css('visibility','visible');
@@ -591,7 +593,6 @@ $("#favoriteperson").change(function(){
     }else   $("#favoriteperson_text").val($(this).val());
 })
 function adduser(){
-    let today = new Date();  
     var new_manager = new Object();
     new_manager.user_id =$('#inputUserId').val()
     new_manager.user_password=$('#inputPassword').val()
@@ -606,12 +607,12 @@ function adduser(){
 
     new_manager.user_phone=$('#inputUserId').val()
     new_manager.user_city=$('#regidence').val()
-    new_manager.user_recenttime=today
+    new_manager.user_recenttime=moment(date).format('YYYY-MM-DD HH:mm:ss')
 
-    new_manager.user_recentgps=$('#inputUserId').val()
+    new_manager.user_recentgps='00.0000000,000.0000000'
 
 
-    new_manager.user_signdate=today
+    new_manager.user_signdate=moment(date).format('YYYY-MM-DD')
 
     new_manager.user_previewintroduce=$('#previewintroduce').val()
 

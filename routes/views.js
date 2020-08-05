@@ -44,4 +44,8 @@ router.get('/inquire', function(req, res, next) {
   router.get('/reg_member', function(req, res, next) {
     res.render('./member/reg_member.ejs', { title: 'ILOVE' });
   });
+
+  router.get('/member_manager', function(req, res, next) {
+    res.render('./member/member_manager.ejs', { title: 'ILOVE' });
+  });
 module.exports = router;

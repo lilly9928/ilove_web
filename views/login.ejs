@@ -45,7 +45,7 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="">Need an account? Sign up!</a></div>
+                                    <div class="small"><a href="auth/join">Need an account? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
         var password = $('#inputPassword').val()
         console.log(id)
         var table = "user"
-        var value = "user_id='" + id + "' and user_password= '" + password + "' and user_authority = 'admin'"
+        var value = "user_id='" + id + "' and user_password= '" + password + "' and user_authority <> 'normal'"
 
              a2s_getDBByCond(table, value, function (res) {
                  if(res.length==0){
@@ -89,7 +89,7 @@
                  }
                  else 
                  {console.log("success")
-                 location.href="/"
+                 location.href="/main"
                 }
                  
               

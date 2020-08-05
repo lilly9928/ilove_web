@@ -1,0 +1,666 @@
+<% include reference.ejs %>
+
+<!DOCTYPE html>
+<html lang="en">
+   
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>ILOVE</title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header" style="background-color: chocolate;"><h3 class="text-center font-weight-light my-4">매니저가입</h3></div>
+                                    <div class="card-body" style="background-color: chocolate;">
+                                        <form id="join1" >
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputUserId">UserId</label>
+                                                        <input class="form-control py-4" id="inputUserId" type="text" placeholder="전화번호" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputNickname">NickName</label>
+                                                        <input class="form-control py-4" id="inputNickname" type="text" placeholder="닉네임" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputPassword">Password</label>
+                                                        <input class="form-control py-4" id="inputPassword" type="password" placeholder="비밀번호" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputgender">성별</label>
+                                                        <select class="form-control" id='inputgender'>
+                                                            <option>M</option>
+                                                            <option>F</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputbirthday">생일</label>
+                                                        <input class="form-control py-4" id="inputbirthday" type="text" placeholder="19920101형식" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputpurpose">목적</label>
+                                                        <select class="form-control" id='inputpurpose'>
+                                                            <option>결혼</option>
+                                                            <option>재혼</option>
+                                                            <option>연애</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join2"  >
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="bodyType">체형</label>
+                                                        <select class="form-control" id='bodyType'>
+                                                                <option>마른</option>
+                                                                <option>슬림탄탄</option>
+                                                                <option>보통</option>
+                                                                <option>글래머</option>
+                                                                <option>근육질</option>
+                                                                <option>통통한</option>
+                                                                <option>뚱뚱한</option>
+                                                                <option>기타</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                           
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="height">키</label>
+                                                        <input class="form-control py-4" id="inputheight" type="text" placeholder="130~200사이로 입력해주세요." />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="bloodType">혈액형</label>
+                                                        <select class="form-control" id='bloodType'>
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>O</option>
+                                                                <option>AB</option>
+                                                                <option>몰라요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="residence">거주지</label>
+                                                        <select class="form-control" id='residence'>
+                                                                <option>서울</option>
+                                                                <option>경기</option>
+                                                                <option>인천</option>
+                                                                <option>대전</option>
+                                                                <option>대구</option>
+                                                                <option>부산</option>
+                                                                <option>울산</option>
+                                                                <option>광주</option>
+                                                                <option>강원</option>
+                                                                <option>세종</option>
+                                                                <option>충북</option>
+                                                                <option>충남</option>
+                                                                <option>경북</option>
+                                                                <option>전남</option>
+                                                                <option>제주</option>
+                                                                <option>해외</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join3">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="job">직업</label>
+                                                        <select class="form-control" id ='job'>
+                                                                <option>회사원</option>
+                                                                <option>사무직</option>
+                                                                <option>대기업</option>
+                                                                <option>외국계 컨설팅관련</option>
+                                                                <option>크리에이터</option>
+                                                                <option>IT관련업</option>
+                                                                <option>대기업 무역관련</option>
+                                                                <option>의사</option>
+                                                                <option>변호사</option>
+                                                                <option>공인회계사</option>
+                                                                <option>사장,임원</option>
+                                                                <option> 외국계 금융관련</option>
+                                                                <option>공무원</option>
+                                                                <option>학생</option>
+                                                                <option>승무원</option>
+                                                                <option>교수,선생님</option>
+                                                                <option>패션업</option>
+                                                                <option>연예인,모델</option>
+                                                                <option>광고</option>
+                                                                <option>방송,신문사 </option>
+                                                                <option>WEB관련</option>
+                                                                <option>아나운서</option>
+                                                                <option>나레이터 모델 </option>
+                                                                <option>안내원</option>
+                                                                <option>비서</option>
+                                                                <option>간호사</option>
+                                                                <option>보육사</option>
+                                                                <option>자영업 </option>
+                                                                <option>파일럿</option>
+                                                                <option>중소기업</option>
+                                                                <option>금융업</option>
+                                                                <option>컨설팅업</option>
+                                                                <option>조리사,영양사</option>
+                                                                <option>교육관련</option>
+                                                                <option>식품관련</option>
+                                                                <option>제약관련</option>
+                                                                <option>보험</option>
+                                                                <option>부동산 </option>
+                                                                <option>건설업</option>
+                                                                <option>통신</option>
+                                                                <option>유통</option>
+                                                                <option>서비스업</option>
+                                                                <option>미용관련</option>
+                                                                <option>연예계 관련</option>
+                                                                <option>여행관련</option>
+                                                                <option>결혼관련업</option>
+                                                                <option>복지관련</option>
+                                                                <option>약사 </option>
+                                                                <option>스포츠선수</option>
+                                                                <option>기타</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="education">학력</label>
+                                                        <select class="form-control" id='education'>
+                                                                <option>대학(2년제)/전문대 졸업</option>
+                                                                <option>고등학교 졸업</option>
+                                                                <option>대학교(4년제)졸업</option>
+                                                                <option>대학원 졸업</option>
+                                                                <option>기타</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="holiday">휴일</label>
+                                                        <select class="form-control" id='holiday'>
+                                                                <option>토일</option>
+                                                                <option>평일</option>
+                                                                <option>때에 따라 달라요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="cigarette">담배</label>
+                                                        <select class="form-control" id='cigarette'>
+                                                                <option>비흡연자</option>
+                                                                <option>흡연자</option>
+                                                                <option>상대방이 싫다면 끊을 수 있어요</option>
+                                                                <option>가끔 피워요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join4">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="alcohol">술</label>
+                                                        <select class="form-control" id ='alcohol'>
+                                                                <option>안마셔요</option>
+                                                                <option>마셔요</option>
+                                                                <option>가끔 마셔요</option>
+                                                            </select>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="religion">종교</label>
+                                                        <select class="form-control" id='religion'>
+                                                                <option>기독교</option>
+                                                                <option>불교</option>
+                                                                <option>천주교</option>
+                                                                <option>무교</option>
+                                                                <option>기타</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="brother">형제자매</label>
+                                                        <select class="form-control" id='brother'>
+                                                                <option>첫째</option>
+                                                                <option>둘째</option>
+                                                                <option>셋째</option>
+                                                                <option>기타</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                              
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="country">국적</label>
+                                                        <select class="form-control" id='country'>
+                                                                <option>대한민국</option>
+                                                                <option>일본</option>
+                                                                <option>중국</option>
+                                                                <option>미국</option>
+                                                                <option>캐나다</option>
+                                                                <option>영국</option>
+                                                                <option>싱가포르</option>
+                                                                <option>대만</option>
+                                                                <option>기타</option>
+                                                              
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join5">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="salary">연수입</label>
+                                                        <select class="form-control" id='salary'>
+                                                                <option>2000만원 미만</option>
+                                                                <option>3000만원 이상</option>
+                                                                <option>4000만원 이상 </option>
+                                                                <option>5000만원 이상 </option>
+                                                                <option>6000만원 이상 </option>
+                                                                <option>8000만원 이상 </option>
+                                                
+                                                            </select>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                              
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="asset">재산</label>
+                                                        <select class="form-control" id='asset'>
+                                                                <option>3천만원 미만</option>
+                                                                <option>7천만원 미만</option>
+                                                                <option>1억 미만</option>
+                                                                <option>3억 미만</option>
+                                                                <option>5억 미만 </option>
+                                                                <option>10억 미만</option>
+                                                                <option>10억 이상</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                          
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="marriagehistory">혼인이력</label>
+                                                        <select class="form-control" id='marriagehistory'>
+                                                                <option>미혼</option>
+                                                                <option>이혼 했어요</option>
+                                                                <option>사별 했어요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="children">자녀</label>
+                                                        <select class="form-control" id='children'>
+                                                                <option>없음</option>
+                                                                <option>동거중</option>
+                                                                <option>별거중</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join6">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="marriageplan">결혼계획</label>
+                                                        <select class="form-control" id='marriageplan'>
+                                                                <option>바로 하고 싶어요</option>
+                                                                <option>좋은 사람 있으면 하고싶어요</option>
+                                                                <option>상대방에게 맞춰주고 싶어요</option>
+                                                                <option>모르겠어요 </option>
+                                                                <option>자유롭게 살고싶어요 </option>
+                                                                <option>연애만 하고싶어요</option>
+                                                
+                                                            </select>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                               
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="childrenplan">자녀계획</label>
+                                                        <select class="form-control" id='childrenplan'>
+                                                                <option>비출산 주의에요</option>
+                                                                <option>저를 닮은 아이를 낳고싶어요</option>
+                                                                <option>상대방과 의논하고 싶어요</option>
+                                                                <option>상대방에게 맞춰주고 싶어요</option>
+                                                                <option>입양을 하고 싶어요</option>
+                                                                <option>모르겠어요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                           
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="wishdate">데이트 희망사항</label>
+                                                        <select class="form-control" id='wishdate'>
+                                                                <option>일단 만나보고 싶어요</option>
+                                                                <option>마음이 맞으면 만나보고 싶어요</option>
+                                                                <option>아이러브팅에서 충분히 얘기해보고 만나고 싶어요</option>
+                                                                <option>모르겠어요</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                              
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="costdate">데이트비용</label>
+                                                        <select class="form-control" id='costdate'>
+                                                                <option>상대가 전부 냈으면 좋겠어요</option>
+                                                                <option>제가 많이 냈으면 좋겠어요</option>
+                                                                <option>더치페이 하고 싶어요</option>
+                                                                <option>돈이 많은쪽이 냈으면 좋겠어요</option>
+                                                                <option>상대방과 의논하고 싶어요</option>
+                                                                <option>모르겠어요</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join7">
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="roommate">동거인</label>
+                                                        <select class="form-control" id='roommate'>
+                                                                <option>혼자 살아요</option>
+                                                                <option>친구랑 같이 살아요</option>
+                                                                <option>애완동물이랑 같이 살아요</option>
+                                                                <option>가족이랑 살아요</option>
+                                                                <option>기타</option>
+                                                
+                                                            </select>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="interest">관심사</label>
+                                                        <select class="form-control" id='interest'> 
+                                                            <option value="영화보기">영화보기 </option>
+                                                            <option value="카페가기">카페가기</option>
+                                                            <option value="코인노래방">코인노래방</option>
+                                                            <option value="편맥하기">편맥하기</option>
+                                                            <option value="수다떨기">수다떨기</option>
+                                                            <option value="맞집찾기">맞집찾기</option>
+                                                            <option value="야구보기">야구보기</option>
+                                                            <option value="축구보기">축구보기</option>
+                                                            <option value="여행가기">여행가기</option>
+                                                            <option value="등산하기">등산하기</option>
+                                                            <option value="춤추기">춤추기</option>
+                                                            <option value="독서하기">독서하기</option>
+
+                                                        </select>
+                                                        <input class="form-control py-4" id="interest_text" type="text" placeholder="" />
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                         
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="personality">내 성격</label>
+                                                        <select class="form-control" id='personality'>
+                                                            <option  value="엉뚱">엉뚱</option>
+                                                            <option  value="활발">활발</option>
+                                                            <option  value="도도">도도</option>
+                                                            <option  value="친절">친절</option>
+                                                            <option  value="애교">애교</option>
+                                                            <option  value="털털">털털</option>
+                                                            <option  value="성실">성실</option>
+                                                            <option  value="착한">착한</option>
+                                                            <option  value="4차원">4차원</option>
+                                                            <option  value="순수">순수</option>
+                                                            <option  value="귀여운">귀여운</option>
+                                                            <option  value="다정다감">다정다감</option>
+                                                        </select>
+                                                        <input class="form-control py-4" id="personality_text" type="text" placeholder="" />
+                                                       
+                                                        </div>
+                                                    </div>
+                                             
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small md-4" for="favoriteperson">내가 좋아하는 사람</label>
+                                                      
+                                                        <select class="form-control" id='favoriteperson'>
+                                                            <option value="귀여운">귀여운</option>
+                                                            <option value="털털한">털털한</option>
+                                                            <option value="잘 웃는">잘 웃는</option>
+                                                            <option value="유머러스한">유머러스한</option>
+                                                            <option value="다정다감한">다정다감한</option>
+                                                            <option value="엄청 착한">엄청 착한</option>
+                                                            <option value="순수한">순수한</option>
+                                                            <option value="박력있는">박력있는</option>
+                                                            <option value="듬직한">듬직한</option>
+                                                            <option value="마음이 예쁜">마음이 예쁜</option>
+                                                            <option value="욕 안하는">욕 안하는</option>
+                                                            <option value="열정적인">열정적인</option>
+                                                        </select>
+                                                
+                                                        <input class="form-control py-4" id="favoriteperson_text" type="text" placeholder="" />
+                                                        
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                          <hr></hr>
+                                        </form>
+                                        <form id="join8">
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="user_introduce">소개글</label>
+                                                        <input class="form-control py-6" id="user_introduce" type="text" placeholder="소개글을 입력하세요." />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                         
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="previewintroduce">한줄소개</label>
+                                                        <input class="form-control py-6" id="previewintroduce" type="text" placeholder="한줄 소개글을 입력하세요." />
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                       
+                                          <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" style="background-color: darkgrey;" onclick="adduser()">Create Account</a></div>
+                                        </form>
+                    
+                    
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="/">Have an account? Go to login</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; ILOVE</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+<script>
+function ClickNext(number){
+   $("#join"+number-1).css('visibility','hidden');
+   $("#join"+number).css('visibility','visible');
+}
+
+$("#interest").change(function(){
+    var data=$("#interest_text").val()
+    if(data!=''){
+    $("#interest_text").val(data+','+$(this).val());
+    }
+    else  $("#interest_text").val($(this).val()); 
+})
+
+$("#personality").change(function(){
+    var data=$("#personality_text").val()
+    if(data!=''){
+    $("#personality_text").val(data+','+$(this).val());
+    }else   $("#personality_text").val($(this).val());
+})
+
+$("#favoriteperson").change(function(){
+    var data=$("#favoriteperson_text").val()
+    if(data!=''){
+    $("#favoriteperson_text").val(data+','+$(this).val());
+    }else   $("#favoriteperson_text").val($(this).val());
+})
+function adduser(){
+    let today = new Date();  
+    var new_manager = new Object();
+    new_manager.user_id =$('#inputUserId').val()
+    new_manager.user_password=$('#inputPassword').val()
+    new_manager.user_nickname=$('#inputNickname').val()
+    new_manager.user_birthday=$('#inputbirthday').val()
+    new_manager.user_gender=$('#inputgender').val()
+    new_manager.user_purpose=$('#inputpurpose').val()
+    new_manager.user_authority='manager'
+
+   
+    new_manager.user_introduce=$('#user_introduce').val()
+
+    new_manager.user_phone=$('#inputUserId').val()
+    new_manager.user_city=$('#regidence').val()
+    new_manager.user_recenttime=today
+
+    new_manager.user_recentgps=$('#inputUserId').val()
+
+
+    new_manager.user_signdate=today
+
+    new_manager.user_previewintroduce=$('#previewintroduce').val()
+
+    var new_manager_option = new Object();
+    new_manager_option.user_id=$('#inputUserId').val()
+    new_manager_option.user_height=$('#height').val()
+    new_manager_option.user_bodytype=$('#bodyType').val()
+    new_manager_option.user_bloodtype=$('#bloodType').val()
+    new_manager_option.user_residence=$('#residence').val()
+    new_manager_option.user_job=$('#job').val()
+    new_manager_option.user_education=$('#education').val()
+    new_manager_option.user_holiday=$('#holiday').val()
+    new_manager_option.user_cigarette=$('#cigarette').val()
+    new_manager_option.user_alcohol=$('#alcohol').val()
+    new_manager_option.user_religion=$('#religion').val()
+    new_manager_option.user_brother=$('#brother').val()
+    new_manager_option.user_country=$('#country').val()
+    new_manager_option.user_salary=$('#salary').val()
+    new_manager_option.user_asset=$('#asset').val()
+    new_manager_option.user_marriagehistory=$('#marriagehistory').val()
+    new_manager_option.user_children=$('#children').val()
+    new_manager_option.user_marriageplan=$('#marriageplan').val()
+    new_manager_option.user_childrenplan=$('#childrenplan').val()
+   
+    new_manager_option.user_wishdate=$('#wishdate').val()
+    new_manager_option.user_datecost=$('#costdate').val()
+    new_manager_option.user_roommate=$('#roommate').val()
+   
+    new_manager_option.user_interest=$('#interest_text').val()
+    new_manager_option.user_personality=$('#personality').val()
+    new_manager_option.user_favoriteperson=$('#favoriteperson_text').val()
+
+    a2s_addDB('user', JSON.stringify(new_manager), function (res) {
+            if (res.affectedRows > 0) {
+                a2s_addDB('useroption', JSON.stringify(new_manager_option), function (res) {
+                if (res.affectedRows > 0) {
+                    alert('회원가입이 완료되었습니다.')
+                    location.href="/"
+                }
+                else {
+                    alert('회원가입에 실패하였습니다.')
+                }
+        })
+            }
+            else {
+                alert('회원가입에 실패하였습니다.')
+            }
+           
+        })
+
+}
+</script>

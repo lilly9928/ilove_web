@@ -1,6 +1,7 @@
 <% include ../reference.ejs %>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
+
 <div class="card-body">
 
     <div class="table-responsive" style="padding-left: 5%;">
@@ -15,19 +16,18 @@
                 </tr>
             </thead>
         </table>
-        <button type="button" class="btn btn-danger" onclick="Clicklike()">좋아요</button>
+        <button type="button" class="btn btn-danger" onclick="Clicklike()">프로필보기</button>
     </div>
 </div>
 
 <script>
     var selectRow = []
     var date = new Date();
-
     $(document).ready(function () {
 
         var fields = "*"
         var table = 'user'
-        var value = 'user.user_authority="normal" and user.user_id <>"' + sessionStorage.getItem("id") + ' "and user.user_id not in (select expression.partner_id from expression where expression.user_id ="'+sessionStorage.getItem("id") + '" and expression_type="like")'
+        var value = 'user.user_authority="normal" and user.user_id <>"' + sessionStorage.getItem("id") + ' "and user.user_id not in (select viewhistory.partner_id from viewhistory where viewhistory.user_id ="' + sessionStorage.getItem("id") + '" and viewhistory.visit_type="profile" )'
         var data = []
         a2s_getDBSomeByCond(table, fields, value, function (res) {
             if (res.length != 0) {
@@ -77,22 +77,22 @@
     //수정버튼이벤트
     function Clicklike() {
 
-for (var i = 0; i < selectRow.length; i++) {
-    var new_expression = new Object();
-    new_expression.user_id = sessionStorage.getItem("id")
-    new_expression.partner_id = selectRow[i]
-    new_expression.expression_type = 'like'
-    new_expression.expression_date =moment(date).format('YYYY-MM-DD HH:mm:ss')
-        a2s_addDB('expression', JSON.stringify(new_expression), function (res) {
-            if (res.affectedRows > 0) {
-               
-            }
-            else {
-                alert(new_expression.partner_id+"유저에게 좋아요 보내기를 실패했습니다.")
-            }
-            window.location.reload()
-        })
-}
-}
+        for (var i = 0; i < selectRow.length; i++) {
+            var new_history = new Object();
+            new_history.user_id = sessionStorage.getItem("id")
+            new_history.partner_id = selectRow[i]
+            new_history.visit_type = 'profile'
+            new_history.visit_date = moment(date).format('YYYY-MM-DD HH:mm:ss')
+            a2s_addDB('viewhistory', JSON.stringify(new_history), function (res) {
+                if (res.affectedRows > 0) {
+
+                }
+                else {
+                    alert(new_history.partner_id + "유저 프로필 보기 체크에 실패했습니다.")
+                }
+                window.location.reload()
+            })
+        }
+    }
 
 </script>

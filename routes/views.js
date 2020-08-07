@@ -51,4 +51,5 @@ router.get('/inquire', function(req, res, next) {
   router.get('/member_view', function(req, res, next) {
     res.render('./member/view_member.ejs', { title: 'ILOVE' });
   });
+ 
 module.exports = router;

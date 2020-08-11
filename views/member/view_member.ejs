@@ -85,10 +85,10 @@
             new_history.visit_date = moment(date).format('YYYY-MM-DD HH:mm:ss')
             a2s_addDB('viewhistory', JSON.stringify(new_history), function (res) {
                 if (res.affectedRows > 0) {
-
+                    
                 }
                 else {
-                    alert(new_history.partner_id + "유저 프로필 보기 체크에 실패했습니다.")
+                    alert('프로필보기처리가 실패되었습니다.')
                 }
                 window.location.reload()
             })

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,8 +11,10 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         crossorigin="anonymous"></script>
-        
-        
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/component.js"></script>
+
 </head>
 
 <!--이미지편집 모달시작-->
@@ -28,10 +31,13 @@
             <!--모달내용-->
             <div class="modal-body">
                 <div class="form-row">
-                    <form action="/uploads" method="post" enctype="multipart/form-data">
-                        <input type="file" name="user_file" />
-                        <input type="submit" value="전송" />
-                  </form>                  
+                    <form action="/uploads/create" method="post" enctype="multipart/form-data">
+                        <input type="hidden"  name="user_id"  id="user_id"><br>
+                        <input type="hidden"  name="image_usage"  id="image_usage"><br>
+                        <input type="hidden"  name="image_date"  id="image_date"><br>
+                        <input type="file" name="imgFile" id="imgFile">
+                        <input type="submit" value="파일 업로드하기">
+                    </form>
                 </div>
                 <hr>
 
@@ -62,8 +68,8 @@
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" id="image_edit">Settings</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
+                   <!-- <a class="dropdown-item" id="image_edit">Settings</a>
+                    <a class="dropdown-item" href="#">Activity Log</a>-->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/auth/login">Logout</a>
                 </div>
@@ -112,7 +118,10 @@
 
                             </nav>
                         </div>
-
+                        <a class="nav-link" onclick="change_iframe('/views/mypage')">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            내정보
+                        </a>
                         <!--<a class="nav-link"  onclick="change_iframe('/views/push')">
                           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                          PUSH관리
@@ -154,24 +163,27 @@
 
 </html>
 <script>
+    var date = new Date();
+
     function change_iframe(url) {
         var iframe = document.getElementById("main_frame");
         iframe.src = url;
     }
 
-    var fileInput = document.getElementById("fileInput");
-  //값이 변경될때 호출 되는 이벤트 리스너
-  fileInput.addEventListener('change',function(e){
-    console.log(e.target.files)
-  })
 
     $(document).ready(function () {
-        //추가버튼클릭
+       
         $("#image_edit").click(function () {
-           
+            var id=sessionStorage.getItem("id")
+            var date =moment(date).format('YYYY-MM-DD HH:mm:ss')
+            $("#user_id").val(id)
+            $("#image_usage").val("mainprofile")
+            $("#image_date").val(date)
+
             $("#show_modal").modal();
         });
-       
+
+
     })
 
 </script>

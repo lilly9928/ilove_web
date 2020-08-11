@@ -33,6 +33,9 @@ router.get('/inquire', function(req, res, next) {
   router.get('/push', function(req, res, next) {
     res.render('./etc/push', { title: 'ILOVE' });
   });
+  router.get('/mypage', function(req, res, next) {
+    res.render('./etc/mypage', { title: 'ILOVE' });
+  });
   
   /*member폴더*/
   router.get('/chat_staff', function(req, res, next) {

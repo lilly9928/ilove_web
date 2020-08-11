@@ -1,3 +1,23 @@
+function a2s_addimage( table,values, callback) {
+    var res;
+    $.ajax({
+        url: "/uploads/create",
+        type: "POST",
+        dataType: 'json',
+        data: jQuery.param({table: table, values: values}),
+        success: function(result, textStatus, jqXHR){
+            //console.log(`result1`, result);
+            //console.log(`status1`, jqXHR.status);
+            callback(result);
+        },
+        error: function(jqXHR, error) {
+            //console.log(`error1`, error);
+            //console.log(`status1`, jqXHR.status);
+            callback(error);
+        }
+    });
+}
+
 function a2s_getDBAll(table, callback) {
     var res;
     $.ajax({
@@ -125,6 +145,7 @@ function a2s_getDBField(table, callback) {
         }
     });
 }
+
 function a2s_addDB(table, values, callback) {
     var res;
     $.ajax({

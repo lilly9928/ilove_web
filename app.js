@@ -16,6 +16,7 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var apiRouter = require('./routes/api');
 var viewsRouter= require('./routes/views');
+var fileUploadRouter = require('./routes/uploads');
 var app = express();
 
 // view engine setup
@@ -27,12 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('uploads'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/api',apiRouter);
 app.use('/views',viewsRouter);
+app.use('/uploads', fileUploadRouter);
 
 
 // catch 404 and forward to error handler

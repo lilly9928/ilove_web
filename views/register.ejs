@@ -606,7 +606,7 @@ function adduser(){
     new_manager.user_introduce=$('#user_introduce').val()
 
     new_manager.user_phone=$('#inputUserId').val()
-    new_manager.user_city=$('#regidence').val()
+    new_manager.user_city=$('#residence').val()
     new_manager.user_recenttime=moment(date).format('YYYY-MM-DD HH:mm:ss')
 
     new_manager.user_recentgps='00.0000000,000.0000000'
@@ -618,7 +618,7 @@ function adduser(){
 
     var new_manager_option = new Object();
     new_manager_option.user_id=$('#inputUserId').val()
-    new_manager_option.user_height=$('#height').val()
+    new_manager_option.user_height=$('#inputheight').val()+"cm"
     new_manager_option.user_bodytype=$('#bodyType').val()
     new_manager_option.user_bloodtype=$('#bloodType').val()
     new_manager_option.user_residence=$('#residence').val()
@@ -642,7 +642,7 @@ function adduser(){
     new_manager_option.user_roommate=$('#roommate').val()
    
     new_manager_option.user_interest=$('#interest_text').val()
-    new_manager_option.user_personality=$('#personality').val()
+    new_manager_option.user_personality=$('#personality_text').val()
     new_manager_option.user_favoriteperson=$('#favoriteperson_text').val()
 
     a2s_addDB('user', JSON.stringify(new_manager), function (res) {

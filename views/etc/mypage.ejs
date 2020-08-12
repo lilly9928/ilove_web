@@ -29,7 +29,7 @@
                         <input type="hidden" name="image_usage" id="image_usage"><br>
                         <input type="hidden" name="image_date" id="image_date"><br>
                         <input type="hidden" name="image_check" id="image_check"><br>
-                       <!-- <input type="hidden" name="image_check" id="delete_image"><br>-->
+                       <input type="hidden" name="delete_image" id="delete_image"><br>
                         <input type="file" name="imgFile" id="imgFile">
                         <input type="submit" value="메인 프로필변경">
                     </form>
@@ -570,7 +570,7 @@
 
 
 <script>
- 
+  
     $(document).ready(function () {
 
         var id = sessionStorage.getItem("id")
@@ -578,8 +578,6 @@
         $("#user_id").val(id)
         $("#image_usage").val("mainprofile")
         $("#image_date").val(date)
-       
-  
 
 
         var table = 'user'
@@ -610,7 +608,7 @@
         a2s_getDBByCond("useroption", value, function (res) {
             if (res.length != 0) {
 
-                $('#height').val(res[0].user_height)
+                $('#inputheight').val(res[0].user_height)
                 $('#bodyType').val(res[0].user_bodytype)
                 $('#bloodType').val(res[0].user_bloodtype)
                 $('#residence').val(res[0].user_residence)
@@ -634,20 +632,21 @@
                 $('#roommate').val(res[0].user_roommate)
 
                 $('#interest_text').val(res[0].user_interest)
-                $('#personality').val(res[0].user_personality)
+                $('#personality_text').val(res[0].user_personality)
                 $('#favoriteperson_text').val(res[0].user_favoriteperson)
             }
         })
         a2s_getDBByCond("image", value, function (res) {
             if (res.length != 0) {
-                var scr =res[0].image
-                $("#profilemain").attr('src',scr)
-                $("#image_check").val("1")
-               // $("#delete_image").val(res[0].image)
+                var src =res[0].image
+                $("#profilemain").attr('src',src)
+                $("#image_check").val(1)
+                var image=src.split("/")
+                $("#delete_image").val(image[3])
 
             }
             else{
-                $("#image_check").val("0")
+                $("#image_check").val(0)
             }
         })
     })
